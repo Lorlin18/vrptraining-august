@@ -1,0 +1,100 @@
+<apex:page docType="html-5.0" controller="OrderPageController">  
+    <apex:slds /> 
+		<div class="slds-page-header slds-align_absolute-center">
+             <table class="slds-table_fixed-layout">
+				<td class="slds-size_1-of-3"><div class="slds-page-header__title slds-align_absolute-center">Contact Information</div></td>				
+                <td class="slds-size_1-of-3"></td>
+                <td class="slds-size_1-of-3"> <div class="slds-page-header__title slds-text-align_left">Product Information</div></td>
+            </table>         
+		</div>
+    <apex:form >
+    	<div class="sslds-align_absolute-center">
+        	<apex:pageMessages id="errors" escape="false">
+        	</apex:pageMessages>
+       </div>
+    <table class="slds-table slds-table_cell-buffer slds-table_fixed-layout">      
+        <tbody>
+            <tr>
+				<td scope="col" class="slds-text-align_right" id='rerenderme'>
+                    <div class="slds-form slds-form_horizontal">	
+                        <div class="slds-form-element">
+							<label class="slds-form-element__label" for="input-email">Email</label>
+							<div class="slds-form-element__control">
+                                <apex:input type="email" value="{!Email}" styleClass="slds-input email-input">
+                                    <apex:actionSupport event="onchange" action="{!SearchContactToAutoFill}" reRender="fname, lname">
+                                        <apex:param name="EmailToSearch" value="{!Email}" assignTo="{!EmailToSearch}"/>
+                                    </apex:actionSupport>
+                                </apex:input>
+							</div>
+						</div>
+                        <div class="slds-form-element">
+							<label class="slds-form-element__label" for="input-first-name">FirstName</label>
+							<div class="slds-form-element__control">
+								<apex:inputText value="{!FirstNameOnPage}" styleClass="slds-input firstname-input" id="fname"/>
+							</div>
+						</div>
+                        <div class="slds-form-element">
+							<label class="slds-form-element__label" for="input-last-name">LastName</label>
+							<div class="slds-form-element__control">
+								<apex:inputText value="{!LastNameOnPage}" styleClass="slds-input lastname-input" id="lname"/> 
+							</div>
+						</div>                         
+                    </div>
+                </td>
+                <td scope="col"></td>
+                <td scope="col" class="slds-text-align_left">
+                    <div class="slds-form slds-form_horizontal">
+						<table>
+                            <tr>
+                                <td class="slds-text-title slds-text-align_right">Product Name</td>
+                                <td class="slds-text-title slds-text-align_left" style="white-space: normal;">{!product.Name}</td>
+                            </tr>
+                            <tr>
+                                <td class="slds-text-title slds-text-align_right">Cost</td>
+                                <td class="slds-text-title slds-text-align_left">
+									<apex:outputText title="Cost" value="{0, Number, Currency}">
+                        				<apex:param value="{!product.Unit_Price__c}"/>
+                    				</apex:outputText>                                
+                                </td>                            
+                            </tr>
+                            <tr>
+                                <td class="slds-text-title slds-text-align_right">Unit Count</td>
+                                <td styleClass="kolichestvo">								
+                                    <apex:input type="number" value="{!UnitsOnPage}" styleClass="slds-input amount">
+                                        <apex:actionSupport event="onchange" action="{!total}" reRender="totalamount"/>                                    
+                                    </apex:input> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="slds-text-title slds-text-align_right">Total Amount</td>
+                                <td class="slds-text-title slds-text-align_left">
+                                	<apex:outputText value="{0, Number, Currency}" id="totalamount">
+                        				<apex:param value="{!TotalAmount}"/>
+                    				</apex:outputText>    
+                                </td>                            
+                            </tr>                        
+                        </table>                      
+                    </div>
+				</td>
+            </tr>                 
+        </tbody>      
+    </table>
+    <div class="slds-theme_shade slds-align_absolute-center slds-border_bottom slds-border_top" style="height: 60px;">
+		<apex:commandButton styleClass="slds-button slds-button_neutral" action="{!back}" value="To Shopping"/>
+		<apex:commandButton styleClass="slds-button slds-button_brand" action="{!save}" value="Buy" reRender="errors"/>  
+    </div>
+    </apex:form>
+    <script type = "text/javascript">
+        function ClearValues() {
+            var clear1 = document.getElementsByClassName("email-input")[0];
+            var clear2 = document.getElementsByClassName("firstname-input")[0];
+            var clear3 = document.getElementsByClassName("lastname-input")[0];
+            var clear4 = document.getElementsByClassName("amount")[0];
+            if(clear1.value != null) clear1.value='';
+            if(clear2.value != null) clear2.value='';
+            if(clear3.value != null) clear3.value=''; 
+            if(clear4.value != null) clear4.value=''; 
+        }
+    ClearValues();
+	</script>    
+</apex:page>

@@ -1,0 +1,39 @@
+<apex:page controller="DescriptionPageController">
+    <apex:slds />
+    
+    <div class="slds-page-header slds-align_absolute-center">
+        <div class="slds-page-header__title ">{!product.Name}</div>
+    </div>
+
+    <table class="slds-table slds-table_cell-buffers slds-table_fixed-layout">
+        <tbody>
+            <tr>
+                <td class="slds-align_absolute-center">
+                    <div title="Image" style="width: 60%; height: 60%"><apex:image id="PhoneImage" value="{!product.Image_Url__c}" alt="{!product.Name} picture"/></div>
+                </td>
+                <td class="slds-align-middle">
+                    <div class="slds-grid slds-grid_vertical slds-grid_vertical-align-start">
+                        <div class="slds-col slds-m-bottom_small" style="white-space: normal;">
+                            <div class="slds-text-title_caps" title="Amount">Amount:</div>
+                            <div data-label="Amount" class="slds-text-body_regular">{!product.Units_Available__c}</div>
+                        </div>
+                        <div class="slds-col slds-m-bottom_small" style="white-space: normal;">
+                            <div class="slds-text-title_caps" title="Description">Title:</div>
+                            <div data-label="Title" class="slds-text-body_regular">{!product.Title__c}</div>
+                        </div>
+                        <div class="slds-col slds-m-bottom_small" style="white-space: normal;">
+                            <div class="slds-text-title_caps" title="Description">Description:</div>
+                            <div data-label="Description" class="slds-text-body_regular">{!product.Product_Description__c}</div>
+                        </div>
+                    </div>
+                </td>
+            </tr>                 
+        </tbody>      
+    </table>
+    <div class="slds-theme_shade slds-align_absolute-center slds-border_bottom slds-border_top" style="height: 60px;">
+        <apex:form >
+                <apex:commandButton styleClass="slds-button slds-button_neutral" action="{!RedirectToShop}" value="To Shopping"/>
+                <apex:commandButton styleClass="slds-button slds-button_brand" action="{!RedirectToOrder}" value="Buy"/>
+        </apex:form>    
+    </div>     
+</apex:page>
